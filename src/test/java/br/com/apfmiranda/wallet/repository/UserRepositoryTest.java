@@ -13,10 +13,18 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import br.com.apfmiranda.wallet.entity.User;
 
+/**
+ * @author Alexandre Pires Ferrerira de Miranda <alexandre.pires@nagem.com.br>
+ *
+ * 25 de mar de 2021
+ *
+ */
 @SpringBootTest
+@ActiveProfiles("test")
 @TestInstance(Lifecycle.PER_CLASS)
 public class UserRepositoryTest {
 	
