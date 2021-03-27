@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.apfmiranda.wallet.dto.UserDTO;
-import br.com.apfmiranda.wallet.entity.User;
+import br.com.apfmiranda.wallet.model.dto.UserDTO;
+import br.com.apfmiranda.wallet.model.entity.User;
 import br.com.apfmiranda.wallet.response.Response;
 import br.com.apfmiranda.wallet.service.UserService;
 
@@ -33,7 +33,12 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<Response<UserDTO>> create(@Valid @RequestBody UserDTO dto, BindingResult result) {
 		
-		Response<UserDTO> response = new Response<UserDTO>(); 
+		Response<UserDTO> response = new Response<UserDTO>();
+		
+		if (result.hasErrors()) {
+			result.getAllErrors().forEach(e -> response.getErros().add(e.getDefaultMessage()));
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+		}
 		
 		User user = service.save(dto.toEntity());
 		

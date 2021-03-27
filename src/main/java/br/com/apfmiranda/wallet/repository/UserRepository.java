@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.apfmiranda.wallet.entity.User;
+import br.com.apfmiranda.wallet.model.entity.User;
 
 /**
  * @author Alexandre Pires Ferrerira de Miranda <alexandre.pires@nagem.com.br>

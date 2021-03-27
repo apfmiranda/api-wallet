@@ -1,11 +1,14 @@
-package br.com.apfmiranda.wallet.dto;
+package br.com.apfmiranda.wallet.model.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-import br.com.apfmiranda.wallet.entity.User;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import br.com.apfmiranda.wallet.model.entity.User;
+import br.com.apfmiranda.wallet.util.Bcrypt;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +20,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
 	
 	private Long id;
@@ -29,16 +33,17 @@ public class UserDTO {
 	private String email;
 	
 	public UserDTO(User user) {
+		this.id = user.getId();
 		this.email = user.getEmail();
 		this.name = user.getName();
-		this.password = user.getPassword();
 	}
 	
 	public User toEntity() {
 		User u = new User();
+		u.setId(this.id);
 		u.setEmail(this.email);
 		u.setName(this.name);
-		u.setPassword(this.password);
+		u.setPassword(Bcrypt.getHash(this.password));
 		return u;
 	}
 

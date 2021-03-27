@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import br.com.apfmiranda.wallet.entity.User;
+import br.com.apfmiranda.wallet.model.entity.User;
 
 /**
  * @author Alexandre Pires Ferrerira de Miranda <alexandre.pires@nagem.com.br>

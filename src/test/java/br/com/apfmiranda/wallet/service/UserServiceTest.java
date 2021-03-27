@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
-import br.com.apfmiranda.wallet.entity.User;
+import br.com.apfmiranda.wallet.model.entity.User;
 import br.com.apfmiranda.wallet.repository.UserRepository;
 
 /**

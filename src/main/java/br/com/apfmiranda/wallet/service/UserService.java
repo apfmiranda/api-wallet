@@ -2,7 +2,7 @@ package br.com.apfmiranda.wallet.service;
 
 import java.util.Optional;
 
-import br.com.apfmiranda.wallet.entity.User;
+import br.com.apfmiranda.wallet.model.entity.User;
 
 public interface UserService {
 
