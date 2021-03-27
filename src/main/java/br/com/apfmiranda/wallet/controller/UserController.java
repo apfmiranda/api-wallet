@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.apfmiranda.wallet.model.Response;
 import br.com.apfmiranda.wallet.model.dto.UserDTO;
 import br.com.apfmiranda.wallet.model.entity.User;
-import br.com.apfmiranda.wallet.response.Response;
 import br.com.apfmiranda.wallet.service.UserService;
 
 /**

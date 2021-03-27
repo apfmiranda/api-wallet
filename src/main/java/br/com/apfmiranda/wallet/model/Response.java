@@ -1,4 +1,4 @@
-package br.com.apfmiranda.wallet.response;
+package br.com.apfmiranda.wallet.model;
 
 import java.util.ArrayList;
 import java.util.List;
