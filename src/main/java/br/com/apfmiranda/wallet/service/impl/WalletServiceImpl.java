@@ -1,6 +1,7 @@
 package br.com.apfmiranda.wallet.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.apfmiranda.wallet.model.entity.Wallet;
 import br.com.apfmiranda.wallet.repository.WalletRepository;
@@ -12,6 +13,7 @@ import br.com.apfmiranda.wallet.service.WalletService;
  * 26 de mar de 2021
  *
  */
+@Service
 public class WalletServiceImpl implements WalletService {
 	
 	@Autowired
