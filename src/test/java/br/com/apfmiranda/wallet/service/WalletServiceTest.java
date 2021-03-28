@@ -1,10 +1,10 @@
 package br.com.apfmiranda.wallet.service;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Optional;
+import java.math.BigDecimal;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -15,47 +15,40 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
-import br.com.apfmiranda.wallet.model.entity.User;
-import br.com.apfmiranda.wallet.repository.UserRepository;
+import br.com.apfmiranda.wallet.model.entity.Wallet;
+import br.com.apfmiranda.wallet.repository.WalletRepository;
 
 /**
  * @author Alexandre Pires Ferrerira de Miranda <alexandre.pires@nagem.com.br>
  *
- * 25 de mar de 2021
+ * 27 de mar de 2021
  *
  */
 @SpringBootTest
 @ActiveProfiles("test")
 @TestInstance(Lifecycle.PER_CLASS)
-public class UserServiceTest {
-
+class WalletServiceTest {
+	
 	@MockBean
-	UserRepository repository;
+	WalletRepository repository;
 	
 	@Autowired
-	UserService service;
-	
-	@Test
-	public void testFindByEmail() {
-		BDDMockito.given(repository.findByEmailEquals(Mockito.anyString())).willReturn(Optional.of(new User()));
-	
-		Optional<User> user = service.findByEmail("email@teste.com.br");
-		
-		assertTrue(user.isPresent());
+	WalletService service;
+
+	@BeforeAll
+	void setUp() throws Exception {
+		BDDMockito.given(repository.save(Mockito.any(Wallet.class))).willReturn(new Wallet());
 	}
-	
+
 	@Test
 	void testSave() {
-		BDDMockito.given(repository.save(Mockito.any(User.class))).willReturn(new User());
+		Wallet w = new Wallet();
+		w.setName("Carteira teste");
+		w.setValue(new BigDecimal(10.10));
 		
-		User u = new User();
-		u.setName("usuario teste");
-		u.setEmail("email@teste.com.br");
-		u.setPassword("123456");
-		
-		User response = service.save(u);
+		Wallet response = service.save(w);
 		
 		assertNotNull(response);
 	}
-	
+
 }
