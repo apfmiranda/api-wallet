@@ -4,11 +4,13 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
 import br.com.apfmiranda.wallet.model.entity.Wallet;
 import br.com.apfmiranda.wallet.model.entity.WalletItem;
+import br.com.apfmiranda.wallet.util.enums.TypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +32,7 @@ public class WalletItemDTO {
 	@NotNull(message = "Informe uma data")
 	private Date date;
 	@NotNull(message = "Informe um tipo")
+	@Pattern(regexp =  "^(ENTRADA|SAIDA)$", message = "Para o tipo só são aceitos ENTRADA ou SAIDA")
 	private String type;
 	@NotNull(message = "Informe uma descrição")
 	@Length(min = 5, message = "A decrição deve conter no minimo 5 caracteres")
@@ -41,7 +44,7 @@ public class WalletItemDTO {
 		this.id = w.getId();
 		this.wallet = w.getWallet().getId();
 		this.date = w.getDate();
-		this.type = w.getType();
+		this.type = w.getType().getValue();
 		this.value = w.getValue();
 				
 	} 
@@ -50,7 +53,7 @@ public class WalletItemDTO {
 	public WalletItem toEntity() {
 		Wallet w = new Wallet();
 		w.setId(wallet);
-		WalletItem wi = new WalletItem(id, w, date, type, description, value);
+		WalletItem wi = new WalletItem(id, w, date, TypeEnum.valueOf(type), description, value);
 		
 		return wi;
 	}

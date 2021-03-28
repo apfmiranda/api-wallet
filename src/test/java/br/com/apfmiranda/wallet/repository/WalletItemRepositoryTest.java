@@ -15,6 +15,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import br.com.apfmiranda.wallet.model.entity.Wallet;
 import br.com.apfmiranda.wallet.model.entity.WalletItem;
+import br.com.apfmiranda.wallet.util.enums.TypeEnum;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -22,7 +23,7 @@ import br.com.apfmiranda.wallet.model.entity.WalletItem;
 public class WalletItemRepositoryTest {
 	
 	private static final Date DATE = new Date();
-	private static final String TYPE = "EN";
+	private static final TypeEnum TYPE = TypeEnum.EN;
 	private static final String DESCRIPTION = "Conta de luz";
 	private static final BigDecimal VALUE = BigDecimal.valueOf(78);
 	
