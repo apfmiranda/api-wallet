@@ -23,7 +23,7 @@ import br.com.apfmiranda.wallet.service.UserWalletService;
  *
  */
 @RestController
-@RequestMapping("userwallet")
+@RequestMapping("user-wallet")
 public class UserWalletController {
 	
 	@Autowired
