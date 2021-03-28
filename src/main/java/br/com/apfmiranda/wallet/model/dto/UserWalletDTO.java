@@ -2,7 +2,9 @@ package br.com.apfmiranda.wallet.model.dto;
 
 import javax.validation.constraints.NotNull;
 
+import br.com.apfmiranda.wallet.model.entity.User;
 import br.com.apfmiranda.wallet.model.entity.UserWallet;
+import br.com.apfmiranda.wallet.model.entity.Wallet;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,9 +30,25 @@ public class UserWalletDTO {
 		this.wallet = u.getWallet().getId();
 	}
 	
+	/**
+	 * Convert DTO para entidade
+	 * 
+	 * 
+	 * @return
+	 */
 	public UserWallet toEntity() {
 		UserWallet u = new UserWallet();
+		
+		User user = new User();
+		user.setId(this.users);
+		
+		Wallet w = new Wallet();
+		w.setId(wallet);
+		
 		u.setId(id);
+		u.setUsers(user);
+		u.setWallet(w);
+		
 		return u;		
 	}
 
