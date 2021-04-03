@@ -1,5 +1,7 @@
 package br.com.apfmiranda.wallet.service;
 
+import java.util.Optional;
+
 import br.com.apfmiranda.wallet.model.entity.UserWallet;
 
 /**
@@ -11,5 +13,7 @@ import br.com.apfmiranda.wallet.model.entity.UserWallet;
 public interface UserWalletService {
 	
 	UserWallet save(UserWallet userWallet);
+
+	Optional<UserWallet> findByUsersIdAndWalletId(long anyLong, long anyLong2);
 
 }

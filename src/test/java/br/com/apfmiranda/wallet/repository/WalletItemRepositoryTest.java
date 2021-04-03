@@ -23,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 
 import br.com.apfmiranda.wallet.model.entity.Wallet;
@@ -44,7 +43,7 @@ public class WalletItemRepositoryTest {
 	private static final Date DATE = new Date();
 	private static final TypeEnum TYPE = TypeEnum.EN;
 	private static final String DESCRIPTION = "Conta de luz";
-	private static final BigDecimal VALUE = BigDecimal.valueOf(78);
+	private static final BigDecimal VALUE = BigDecimal.valueOf(65);
 	private Long savedWalletItemId = null;
 	private Long savedWalletId = null;
 	
@@ -59,7 +58,7 @@ public class WalletItemRepositoryTest {
 	void setUp() throws Exception {
 		Wallet w = new Wallet();
 		w.setName("Carteira teste");
-		w.setValue(BigDecimal.valueOf(45));
+		w.setValue(VALUE);
 		walletRepository.save(w);
 		
 		WalletItem wi = new WalletItem(1L, w, DATE, TYPE, DESCRIPTION, VALUE);
@@ -82,7 +81,7 @@ public class WalletItemRepositoryTest {
 	public void testSave() {
 		Wallet w = new Wallet();
 		w.setName("Carteira teste");
-		w.setValue(BigDecimal.valueOf(45));
+		w.setValue(BigDecimal.valueOf(250));
 		
 		walletRepository.save(w);
 		
@@ -153,8 +152,8 @@ public class WalletItemRepositoryTest {
 		repository.save(new WalletItem(null, w.get(), currentDatePlusFiveDays, TYPE, DESCRIPTION, VALUE));
 		repository.save(new WalletItem(null, w.get(), currentDatePlusSevenDays, TYPE, DESCRIPTION, VALUE));
 		
-		PageRequest pg = PageRequest.of(0, 10, Sort.by("id").ascending()); 
-		Page<WalletItem> response = repository.findByWalletIdAndDateGreaterThanEqualAndDateLessThanEqual(savedWalletId, DATE, currentDatePlusFiveDays, pg);
+		PageRequest pg = PageRequest.of(0, 10); 
+		Page<WalletItem> response = repository.findAllByWalletIdAndDateGreaterThanEqualAndDateLessThanEqual(savedWalletId, DATE, currentDatePlusFiveDays, pg);
 		
 		assertEquals(response.getContent().size(), 2);
 		assertEquals(response.getTotalElements(), 2);
@@ -181,6 +180,20 @@ public class WalletItemRepositoryTest {
 		assertEquals(response.size(), 1);
 		assertEquals(response.get(0).getType(), TypeEnum.SD);
 	}
+
+	@Test
+	public void testSumByWallet() {
+		Optional<Wallet> w = walletRepository.findById(savedWalletId);
+		
+		WalletItem wi = repository.save(new WalletItem(null, w.get(), DATE, TYPE, DESCRIPTION, BigDecimal.valueOf(150.80)));
+		
+		BigDecimal valorEsperado = wi.getValue().add(VALUE);
+		
+		BigDecimal response = repository.sumByWalletId(savedWalletId);
+		
+		assertEquals(response.compareTo(valorEsperado), 0);
+	}
+	
 	
 
 }

@@ -8,6 +8,8 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.apfmiranda.wallet.model.entity.Wallet;
 import br.com.apfmiranda.wallet.model.entity.WalletItem;
 import br.com.apfmiranda.wallet.util.enums.TypeEnum;
@@ -30,6 +32,7 @@ public class WalletItemDTO {
 	@NotNull(message = "Insira o Id da carteira")
 	private Long wallet;
 	@NotNull(message = "Informe uma data")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", locale = "pt-BR", timezone = "Brazil/East")
 	private Date date;
 	@NotNull(message = "Informe um tipo")
 	@Pattern(regexp =  "^(ENTRADA|SAIDA)$", message = "Para o tipo só são aceitos ENTRADA ou SAIDA")
@@ -44,18 +47,22 @@ public class WalletItemDTO {
 		this.id = w.getId();
 		this.wallet = w.getWallet().getId();
 		this.date = w.getDate();
+		this.description = w.getDescription();
 		this.type = w.getType().getValue();
 		this.value = w.getValue();
 				
-	} 
+	}
 	
 	
-	public WalletItem toEntity() {
+	public WalletItem toEntity() { 
+
 		Wallet w = new Wallet();
 		w.setId(wallet);
-		WalletItem wi = new WalletItem(id, w, date, TypeEnum.valueOf(type), description, value);
+		
+		WalletItem wi = new WalletItem(id, w, date, TypeEnum.getEnum(type), description, value);
 		
 		return wi;
 	}
+	
 
 }

@@ -19,6 +19,8 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test")
 @TestInstance(Lifecycle.PER_CLASS)
 class UserWalletRepositoryTest {
+	
+	
 
 	@BeforeEach
 	void setUp() throws Exception {
