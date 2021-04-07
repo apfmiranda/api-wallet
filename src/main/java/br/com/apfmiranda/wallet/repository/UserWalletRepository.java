@@ -1,5 +1,7 @@
 package br.com.apfmiranda.wallet.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +15,7 @@ import br.com.apfmiranda.wallet.model.entity.UserWallet;
  */
 @Repository
 public interface UserWalletRepository extends JpaRepository<UserWallet, Long>{
+
+	Optional<UserWallet> findByUsersIdAndWalletId(long user, long wallet);
 
 }

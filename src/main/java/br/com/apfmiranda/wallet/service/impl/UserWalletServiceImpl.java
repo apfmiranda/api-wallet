@@ -27,9 +27,8 @@ public class UserWalletServiceImpl implements UserWalletService{
 	}
 
 	@Override
-	public Optional<UserWallet> findByUsersIdAndWalletId(long anyLong, long anyLong2) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<UserWallet> findByUsersIdAndWalletId(long user, long wallet) {		
+		return repository.findByUsersIdAndWalletId(user, wallet);
 	}
 
 }

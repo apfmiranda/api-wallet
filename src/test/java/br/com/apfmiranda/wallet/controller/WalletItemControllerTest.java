@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.apfmiranda.wallet.model.dto.WalletItemDTO;
 import br.com.apfmiranda.wallet.model.entity.User;
+import br.com.apfmiranda.wallet.model.entity.UserWallet;
 import br.com.apfmiranda.wallet.model.entity.Wallet;
 import br.com.apfmiranda.wallet.model.entity.WalletItem;
 import br.com.apfmiranda.wallet.service.UserService;
@@ -99,8 +100,8 @@ public class WalletItemControllerTest {
 		user.setId(1L);
 		
 		BDDMockito.given(service.findBetweenDates(Mockito.anyLong(), Mockito.any(Date.class), Mockito.any(Date.class), Mockito.anyInt())).willReturn(page);
-//		BDDMockito.given(userService.findByEmail(Mockito.anyString())).willReturn(Optional.of(user));
-//		BDDMockito.given(userWalletService.findByUsersIdAndWalletId(Mockito.anyLong(), Mockito.anyLong())).willReturn(Optional.of(new UserWallet()));
+		BDDMockito.given(userService.findByEmail(Mockito.anyString())).willReturn(Optional.of(user));
+		BDDMockito.given(userWalletService.findByUsersIdAndWalletId(Mockito.anyLong(), Mockito.anyLong())).willReturn(Optional.of(new UserWallet()));
 		
 		mvc.perform(MockMvcRequestBuilders.get(URL + "/1?startDate=" + startDate + "&endDate=" + endDate)
 				.contentType(MediaType.APPLICATION_JSON)
